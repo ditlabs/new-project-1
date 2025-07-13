@@ -1,4 +1,4 @@
 # nixpacks.toml
 
 [phases.setup]
-nixPkgs = ["php83"]
+nixPkgs = ["php83", "composer"]
