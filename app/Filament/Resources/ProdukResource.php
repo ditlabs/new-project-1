@@ -29,10 +29,10 @@ class ProdukResource extends Resource
     {
         return $form
             ->schema([
-                Textinput::make('nama_produk')->required()->maxLength(50)->directory('gambar-produk'),
-                Textinput::make('harga_produk')->required()->numeric()->prefix('Rp'),
-                textarea::make('deskripsi_produk')->required()->maxLength(255)->columnSpanFull(),
-                FileUpload::make('gambar_produk')->image()->disk('public')->columnSpanFull()
+                \Filament\Forms\Components\TextInput::make('nama_produk')->required()->maxLength(50),
+                \Filament\Forms\Components\TextInput::make('harga_produk')->required()->numeric()->prefix('Rp'),
+                \Filament\Forms\Components\Textarea::make('deskripsi_produk')->required()->maxLength(255)->columnSpanFull(),
+                \Filament\Forms\Components\FileUpload::make('gambar_produk')->image()->disk('public')->columnSpanFull(),
             ]);
     }
 
