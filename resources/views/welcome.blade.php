@@ -228,7 +228,7 @@
             <p class="text-gray-600 mb-6">
               Install custom Android operating systems for better performance, longer battery life, and newer features on older devices.
             </p>
-            <a href="{{ route('layanan.show', ['slug' => 'custom-rom-installation']) }}" class="text-green-600 font-medium flex items-center">
+            <a href="#" class="text-green-600 font-medium flex items-center">
               Learn more
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -249,7 +249,7 @@
             <p class="text-gray-600 mb-6">
               Optimize your device for maximum speed and efficiency, perfect for gaming and multitasking.
             </p>
-            <a href="{{ route('layanan.show', ['slug' => 'tweaking-performance']) }}" class="text-green-600 font-medium flex items-center">
+            <a href="#" class="text-green-600 font-medium flex items-center">
               Learn more
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -270,7 +270,7 @@
             <p class="text-gray-600 mb-6">
               Safely root your device to gain full control over the operating system and install powerful apps.
             </p>
-            <a href="{{ route('layanan.show', ['slug' => 'root-unlock']) }}" class="text-green-600 font-medium flex items-center">
+            <a href="#" class="text-green-600 font-medium flex items-center">
               Learn more
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -291,7 +291,7 @@
             <p class="text-gray-600 mb-6">
               Allow Unlocking the bootloader to install custom ROMs and recoveries, giving you full control over your device.
             </p>
-            <a href="{{ route('layanan.show', ['slug' => 'unlock-bootloader']) }}" class="text-green-600 font-medium flex items-center">
+            <a href="#" class="text-green-600 font-medium flex items-center">
               Learn more
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -312,7 +312,7 @@
             <p class="text-gray-600 mb-6">
               Update and downgrade your Android OS to the desired version, ensuring compatibility with your favorite apps and features.
             </p>
-            <a href="{{ route('layanan.show', ['slug' => 'upgrade-downgrade']) }}" class="text-green-600 font-medium flex items-center">
+            <a href="#" class="text-green-600 font-medium flex items-center">
               Learn more
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -333,7 +333,7 @@
             <p class="text-gray-600 mb-6">
               Get expert advice and ongoing support for all your Android customization needs.
             </p>
-            <a href="{{ route('layanan.show', ['slug' => 'consultation-support']) }}" class="text-green-600 font-medium flex items-center">
+            <a href="#" class="text-green-600 font-medium flex items-center">
               Learn more
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
