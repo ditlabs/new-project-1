@@ -10,10 +10,17 @@ export default {
     ],
 
     theme: {
+        container: {
+          center: true,
+          padding: '16px',
+        },
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            screens: {
+            '2xl': '1320px',
+          },
         },
     },
 
