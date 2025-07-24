@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// 1. TAMBAHKAN DUA BARIS INI
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 
@@ -10,7 +9,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-// 2. TAMBAHKAN "implements FilamentUser" DI SINI
 class User extends Authenticatable implements FilamentUser
 {
     use HasFactory, Notifiable;
@@ -22,7 +20,6 @@ class User extends Authenticatable implements FilamentUser
         'role',
     ];
 
-    // Method ini sudah benar
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->role === 'admin';
@@ -39,5 +36,10 @@ class User extends Authenticatable implements FilamentUser
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }
