@@ -40,5 +40,11 @@ Route::middleware('auth')->group(function () {
     // Rute untuk checkout keranjang
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/checkout', [CheckoutController::class, 'process'])->name('checkout.process');
+
+    // Rute untuk halaman layanan
+    Route::get('/services/custom-rom', function () {
+    return view('services.custom-rom');
+    })->name('services.custom-rom');
+
 });
 require __DIR__.'/auth.php';
