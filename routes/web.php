@@ -46,5 +46,24 @@ Route::middleware('auth')->group(function () {
     return view('services.custom-rom');
     })->name('services.custom-rom');
 
+    Route::get('/services/tweaking-performance', function () {
+        return view('services.tweaking-performance');
+    })->name('services.tweaking-performance');
+
+    Route::get('/services/root-unlock', function () {
+        return view('services.root-unlock');
+    })->name('services.root-unlock');
+
+    Route::get('/services/unlock-bootloader', function () {
+        return view('services.unlock-bootloader');
+    })->name('services.unlock-bootloader');
+
+    Route::get('/services/upgrade-downgrade', function () {
+        return view('services.upgrade-downgrade');
+    })->name('services.upgrade-downgrade');
+
+    Route::get('/services/consultation-support', function () {
+        return view('services.consultation-support');
+    })->name('services.consultation-support');
 });
 require __DIR__.'/auth.php';
