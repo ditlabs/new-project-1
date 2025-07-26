@@ -8,6 +8,7 @@ use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class OrderController extends Controller
 {
@@ -93,5 +94,33 @@ class OrderController extends Controller
         $order->load('details.produk');
 
         return view('orders.show', compact('order'));
+    }
+
+    public function uploadPaymentProof(Request $request, Order $order)
+    {
+        // 1. Otorisasi: Pastikan user yang upload adalah pemilik order
+        // Ini sangat penting untuk keamanan!
+        if (auth()->id() !== $order->user_id) {
+            abort(403, 'Anda tidak memiliki akses untuk pesanan ini.');
+        }
+
+        // 2. Validasi: Pastikan file yang diupload valid
+        $request->validate([
+            'payment_proof' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Wajib, gambar, maks 2MB
+        ]);
+
+        // 3. Simpan File ke Storage
+        // Menggunakan store() akan otomatis membuat nama file unik
+        $filePath = $request->file('payment_proof')->store('payment_proofs', 'public');
+
+        // 4. Update Database
+        // Simpan path file ke dalam kolom 'payment_proof' di order yang sesuai
+        $order->update([
+            'payment_proof' => $filePath,
+            'status' => 'menunggu_konfirmasi' // Opsional: Ubah status pesanan
+        ]);
+
+        // 5. Redirect dengan Pesan Sukses
+        return redirect()->back()->with('success', 'Bukti pembayaran berhasil diunggah!');
     }
 }

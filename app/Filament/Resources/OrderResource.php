@@ -46,6 +46,13 @@ class OrderResource extends Resource
                                 return new \Illuminate\Support\HtmlString($content);
                             }),
                     ])->columns(1),
+                    
+                Section::make('Bukti Pembayaran')
+                    ->schema([
+                        Placeholder::make('bukti_pembayaran')
+                            ->label('Bukti Pembayaran')
+                            ->content(fn ($record) => $record->payment_proof ? 'Tersedia' : 'Tidak Tersedia'),
+                    ]),
 
                 Section::make('Update Status')
                     ->schema([
