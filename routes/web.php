@@ -47,6 +47,9 @@ Route::middleware('auth')->group(function () {
     // Rute untuk mengunggah bukti pembayaran
     Route::post('/pesanan/{order}/upload-bukti', [OrderController::class, 'uploadProof'])->name('pesanan.upload_bukti');
 
+    // Route untuk menangani pembatalan pesanan oleh pengguna
+    Route::delete('/pesanan/{order}/batal', [OrderController::class, 'cancel'])->name('pesanan.batal');
+
     // Rute untuk halaman layanan
     Route::get('/services/custom-rom', function () {
     return view('services.custom-rom');

@@ -9,12 +9,14 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-8 text-gray-900 space-y-6">
 
+                    {{-- Bagian Lacak Pesanan --}}
                     <div>
                         <h3 class="font-semibold mb-4 text-2xl">Lacak Pesanan</h3>
                         <h3 class="font-semibold text-lg">Detail Pesanan #{{ str_pad($order->id, 6, '0', STR_PAD_LEFT) }}</h3>
                         <p>Status Saat Ini: <span class="font-bold text-green-600">{{ ucwords(str_replace('_', ' ', $order->status)) }}</span></p>
                     </div>
 
+                    {{-- Bagian Rincian Barang --}}
                     <div class="border-t pt-6">
                         <h3 class="font-semibold mb-4">Rincian Barang</h3>
                         @foreach ($order->details as $detail)
@@ -31,11 +33,11 @@
                         @endforeach
                     </div>
 
+                    {{-- Bagian Rincian Pembayaran --}}
                     <div class="border-t pt-6 space-y-2">
                         <h3 class="font-semibold mb-4">Rincian Pembayaran</h3>
                         <div class="flex justify-between">
                             <p class="text-gray-600">Subtotal</p>
-                            {{-- Menghitung subtotal dari total dikurangi ongkir (asumsi ongkir statis) --}}
                             <p class="font-semibold">Rp {{ number_format($order->total_price - 10000) }}</p>
                         </div>
                         <div class="flex justify-between">
@@ -48,15 +50,11 @@
                         </div>
                     </div>
 
-                    {{-- Ganti blok "Unggah Bukti Pembayaran" di show.blade.php dengan ini --}}
-
+                    {{-- Bagian Unggah Bukti Pembayaran --}}
                     <div class="border-t pt-6">
-
-                        {{-- Kondisi 1: Tampilkan formulir JIKA statusnya "belum_dikonfirmasi" DAN bukti belum pernah diunggah. --}}
                         @if ($order->status == 'belum_dikonfirmasi' && !$order->payment_proof_path)
                             <h3 class="font-semibold mb-4 text-lg">Unggah Bukti Pembayaran</h3>
                             <p class="text-sm text-gray-600 mb-4">Silakan unggah bukti transfer Anda di sini. Format yang diterima adalah JPG, PNG, atau JPEG (maks. 2MB).</p>
-                            
                             <form action="{{ route('pesanan.upload_bukti', $order) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="flex items-center gap-4">
@@ -67,8 +65,8 @@
                                     <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
                                 @enderror
                             </form>
+                            {{-- Tombol batal yang lama sudah dihapus dari sini --}}
 
-                        {{-- Kondisi 2: Tampilkan pesan konfirmasi JIKA bukti SUDAH pernah diunggah. --}}
                         @elseif($order->payment_proof_path)
                             <h3 class="font-semibold mb-4 text-lg">Bukti Pembayaran Terkirim</h3>
                             <div class="bg-green-50 border-l-4 border-green-400 text-green-700 p-4 rounded-md" role="alert">
@@ -76,9 +74,9 @@
                                 <p>Bukti pembayaran Anda telah berhasil dikirim dan sedang menunggu verifikasi oleh tim kami.</p>
                             </div>
                         @endif
-
                     </div>
 
+                    {{-- Bagian Informasi Toko --}}
                     <div class="border-t pt-6">
                         <h3 class="font-semibold mb-2">Informasi Toko</h3>
                         <div class="mt-2 bg-gray-100 p-3 rounded-lg">
@@ -86,6 +84,24 @@
                             <p class="text-sm text-gray-600">Jalan Teknologi No. 123, Cibiru, Bandung, 40294</p>
                         </div>
                     </div>
+
+                    {{-- ====================================================== --}}
+                    {{-- BAGIAN : Aksi Pembatalan Pesanan --}}
+                    {{-- ====================================================== --}}
+                    @if ($order->status == 'belum_dikonfirmasi' && !$order->payment_proof_path)
+                        <div class="border-t pt-6 text-center">
+                             <form action="{{ route('pesanan.batal', $order) }}" method="POST">
+                                 @csrf
+                                 @method('DELETE')
+                                 <button type="submit" 
+                                         onclick="return confirm('Apakah Anda yakin ingin membatalkan pesanan ini?')" 
+                                         class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                                     Batalkan Pesanan
+                                 </button>
+                             </form>
+                        </div>
+                    @endif
+
                 </div>
             </div>
         </div>

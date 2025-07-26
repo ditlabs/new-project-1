@@ -102,4 +102,19 @@ class OrderController extends Controller
         // 4. Kembali ke halaman sebelumnya dengan pesan sukses
         return back()->with('success', 'Bukti pembayaran berhasil diunggah dan sedang menunggu verifikasi.');
     }
+
+    public function cancel(Order $order)
+    {
+        // 2. Logika Bisnis: Hanya boleh batal jika status 'belum_dikonfirmasi' dan belum ada bukti bayar.
+        if ($order->status !== 'belum_dikonfirmasi' || $order->payment_proof_path) {
+            return back()->with('error', 'Pesanan ini tidak dapat dibatalkan lagi.');
+        }
+
+        // 3. Ubah status pesanan
+        $order->status = 'Dibatalkan';
+        $order->save();
+
+        // 4. Redirect ke halaman riwayat pesanan dengan pesan sukses
+        return redirect()->route('orders.index')->with('success', 'Pesanan #' . str_pad($order->id, 6, '0', STR_PAD_LEFT) . ' telah berhasil dibatalkan.');
+    }
 }
