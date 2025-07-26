@@ -43,24 +43,14 @@
                         </div>
                     </div>
 
-                    <div class="border-b pb-4 space-y-4">
-                        <div>
-                            <h3 class="font-semibold mb-2">Informasi Pembayaran</h3>
-                            <p>Silakan transfer ke rekening berikut:</p>
-                            <div class="mt-2 bg-gray-100 p-3 rounded-lg">
-                                <p class="font-mono text-lg">Bank ABC: 123-456-7890</p>
-                                <p class="text-sm text-gray-500">a/n Toko Anda</p>
-                            </div>
+                    <div class="border-b pb-4">
+                        <h3 class="font-semibold mb-2">Informasi Pembayaran</h3>
+                        <p>Silakan transfer ke rekening berikut:</p>
+                        <div class="mt-2 bg-gray-100 p-3 rounded-lg">
+                            <p class="font-mono text-lg">Bank ABC: 123-456-7890</p>
+                            <p class="text-sm text-gray-500">a/n Toko Anda</p>
                         </div>
-                        
-                        <div>
-                            <h3 class="font-semibold mb-2">Informasi Toko</h3>
-                            <div class="mt-2 bg-gray-100 p-3 rounded-lg">
-                                <p class="font-semibold">Ditlabs</p>
-                                <p class="text-sm text-gray-600">Jalan Teknologi No. 123, Cibiru, Bandung, 40294</p>
-                            </div>
-                        </div>
-                        </div>
+                    </div>
 
                     <form action="{{ route('checkout.process') }}" method="POST">
                         @csrf
