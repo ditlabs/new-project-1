@@ -28,6 +28,11 @@ class OrderResource extends Resource
             ->schema([
                 Section::make('Detail Pesanan')
                     ->schema([
+                        // Menampilkan ID Pesanan
+                        Placeholder::make('order_id')
+                            ->label('ID Pesanan')
+                            ->content(fn ($record): string => '#' . str_pad($record->id, 6, '0', STR_PAD_LEFT)),
+
                         Placeholder::make('nama_pembeli')
                             ->label('Nama Pembeli')
                             ->content(fn ($record) => $record->user->name),
@@ -82,6 +87,11 @@ class OrderResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('id')
+                    ->label('ID Pesanan')
+                    ->formatStateUsing(fn (string $state): string => '#' . str_pad($state, 6, '0', STR_PAD_LEFT))
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('user.name')->label('Nama Pembeli')->searchable()->sortable(),
                 TextColumn::make('total_price')->label('Total Harga')->money('IDR')->sortable(),
                 TextColumn::make('status')
