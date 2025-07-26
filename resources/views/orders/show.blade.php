@@ -52,8 +52,8 @@
 
                     <div class="border-t pt-6">
 
-                        {{-- Kondisi 1: Tampilkan formulir JIKA statusnya "Belum Dikonfirmasi" DAN bukti belum pernah diunggah. --}}
-                        @if ($order->status == 'Belum Dikonfirmasi' && !$order->payment_proof_path)
+                        {{-- Kondisi 1: Tampilkan formulir JIKA statusnya "belum_dikonfirmasi" DAN bukti belum pernah diunggah. --}}
+                        @if ($order->status == 'belum_dikonfirmasi' && !$order->payment_proof_path)
                             <h3 class="font-semibold mb-4 text-lg">Unggah Bukti Pembayaran</h3>
                             <p class="text-sm text-gray-600 mb-4">Silakan unggah bukti transfer Anda di sini. Format yang diterima adalah JPG, PNG, atau JPEG (maks. 2MB).</p>
                             
