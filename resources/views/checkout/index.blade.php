@@ -54,6 +54,11 @@
 
                     <form action="{{ route('checkout.process') }}" method="POST">
                         @csrf
+                        @if($isBuyNow)
+                            <input type="hidden" name="is_buy_now" value="1">
+                            <input type="hidden" name="buy_now_produk_id" value="{{ $cartItems->first()->produk->id }}">
+                            <input type="hidden" name="buy_now_quantity" value="{{ $cartItems->first()->quantity }}">
+                        @endif
                         <x-primary-button class="w-full text-center">
                             <span class="w-full">Konfirmasi & Buat Pesanan</span>
                         </x-primary-button>

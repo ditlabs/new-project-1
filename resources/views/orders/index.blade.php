@@ -41,8 +41,12 @@
                                 </div>
                             @endforeach
 
-                            <div class="text-right mt-4">
-                                <p class="text-gray-600">Total Pesanan: <span class="text-xl font-bold text-gray-900">Rp. {{ number_format($order->total_price) }}</span></p>
+                            <div class="flex justify-between items-center mt-4">
+                                <p class="text-gray-600">Total Pesanan: <span class="font-bold text-gray-900">Rp. {{ number_format($order->total_price) }}</span></p>
+                                
+                                <a href="{{ route('orders.show', $order) }}" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300">
+                                    Lihat Detail
+                                </a>
                             </div>
                         </div>
                     </div>

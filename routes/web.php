@@ -36,6 +36,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/update/{cart}', [CartController::class, 'updateItem'])->name('update');
     Route::delete('/hapus/{cart}', [CartController::class, 'removeItem'])->name('remove');
     });
+    
+    // Rute untuk detail pesanan
+    Route::get('/pesanan/{order}', [OrderController::class, 'show'])->name('orders.show');
 
     // Rute untuk checkout keranjang
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');

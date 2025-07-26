@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -13,53 +14,85 @@ class CheckoutController extends Controller
 {
     /**
      * Menampilkan halaman checkout.
+     * Cerdas: Bisa membedakan antara alur "Beli Sekarang" dan "Keranjang".
      */
-    public function index()
+    public function index(Request $request)
     {
-        $cartItems = Cart::where('user_id', Auth::id())->with('produk')->get();
+        $cartItems = collect();
+        $isBuyNow = false;
 
-        if ($cartItems->isEmpty()) {
-            return redirect()->route('dashboard')->with('error', 'Keranjang Anda kosong!');
+        // Skenario 1: Alur "Beli Sekarang" (jika ada parameter di URL)
+        if ($request->has('produk_id') && $request->has('quantity')) {
+            $produk = Produk::find($request->produk_id);
+            if ($produk) {
+                // Buat "item sementara" hanya dengan produk ini
+                $item = new \stdClass();
+                $item->produk = $produk;
+                $item->quantity = $request->quantity;
+                $cartItems->push($item);
+                $isBuyNow = true;
+            }
+        } 
+        // Skenario 2: Alur normal dari keranjang
+        else {
+            $itemsFromDb = Cart::where('user_id', Auth::id())->with('produk')->get();
+            if ($itemsFromDb->isEmpty()) {
+                return redirect()->route('dashboard')->with('error', 'Keranjang Anda kosong!');
+            }
+            $cartItems = $itemsFromDb;
         }
 
         $subtotal = $cartItems->sum(function ($item) {
             return $item->produk->harga_produk * $item->quantity;
         });
 
-        // Kita bisa tambahkan biaya lain jika perlu, misal ongkir statis
         $shippingCost = 10000;
         $total = $subtotal + $shippingCost;
 
-        return view('checkout.index', compact('cartItems', 'subtotal', 'shippingCost', 'total'));
+        return view('checkout.index', compact('cartItems', 'subtotal', 'shippingCost', 'total', 'isBuyNow'));
     }
 
     /**
-     * Memproses pesanan dari keranjang.
+     * Memproses pesanan.
+     * Cerdas: Bisa membedakan antara alur "Beli Sekarang" dan "Keranjang".
      */
     public function process(Request $request)
     {
         $user = Auth::user();
-        $cartItems = Cart::where('user_id', $user->id)->get();
+        $itemsToProcess = collect();
+        $isBuyNow = $request->input('is_buy_now') == '1';
 
-        if ($cartItems->isEmpty()) {
+        // Skenario 1: Memproses "Beli Sekarang"
+        if ($isBuyNow) {
+            $produk = Produk::find($request->buy_now_produk_id);
+            $item = new \stdClass();
+            $item->produk = $produk;
+            $item->produk_id = $produk->id;
+            $item->quantity = $request->buy_now_quantity;
+            $itemsToProcess->push($item);
+        } 
+        // Skenario 2: Memproses dari Keranjang
+        else {
+            $itemsToProcess = Cart::where('user_id', $user->id)->get();
+        }
+
+        if ($itemsToProcess->isEmpty()) {
             return redirect()->route('dashboard');
         }
-        
-        $totalPrice = $cartItems->sum(function ($item) {
+
+        $totalPrice = $itemsToProcess->sum(function ($item) {
             return $item->produk->harga_produk * $item->quantity;
-        }) + 10000; // Tambahkan ongkir lagi
+        }) + 10000; // Tambah ongkir
 
         DB::beginTransaction();
         try {
-            // 1. Buat "kepala nota" di tabel orders
             $order = Order::create([
                 'user_id' => $user->id,
                 'total_price' => $totalPrice,
                 'status' => 'belum_dikonfirmasi',
             ]);
 
-            // 2. Buat "rincian barang" untuk setiap item di keranjang
-            foreach ($cartItems as $item) {
+            foreach ($itemsToProcess as $item) {
                 OrderDetail::create([
                     'order_id' => $order->id,
                     'produk_id' => $item->produk_id,
@@ -67,13 +100,13 @@ class CheckoutController extends Controller
                     'price' => $item->produk->harga_produk,
                 ]);
             }
-
-            // 3. Kosongkan keranjang pengguna
-            Cart::where('user_id', $user->id)->delete();
+            
+            // Hanya kosongkan keranjang jika ini BUKAN alur "Beli Sekarang"
+            if (!$isBuyNow) {
+                Cart::where('user_id', $user->id)->delete();
+            }
 
             DB::commit();
-
-            // Redirect ke halaman status pesanan dengan pesan sukses
             return redirect()->route('orders.index')->with('success', 'Pesanan Anda telah berhasil dibuat!');
 
         } catch (\Exception $e) {

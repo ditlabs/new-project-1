@@ -11,7 +11,7 @@ class Order extends Model
     'produk_id',
     'quantity',
     'total_price',
-    'status',
+    'status'
 ];
 
     public function user()

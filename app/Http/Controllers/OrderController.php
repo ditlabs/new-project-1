@@ -7,7 +7,7 @@ use App\Models\OrderDetail; // Pastikan model ini di-import
 use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB; // Import DB Facade untuk transaksi
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -80,5 +80,18 @@ class OrderController extends Controller
             // Kirim response error
             return response()->json(['message' => 'Terjadi kesalahan saat membuat pesanan.'], 500);
         }
+    }
+
+    public function show(Order $order)
+    {
+        // Pastikan pengguna hanya bisa melihat pesanannya sendiri
+        if ($order->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        // Ambil data detail pesanan beserta produknya
+        $order->load('details.produk');
+
+        return view('orders.show', compact('order'));
     }
 }
