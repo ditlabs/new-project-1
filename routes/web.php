@@ -45,9 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkout', [CheckoutController::class, 'process'])->name('checkout.process');
 
     // Rute untuk mengunggah bukti pembayaran
-    Route::post('/orders/{order}/upload-payment-proof', [OrderController::class, 'uploadPaymentProof'])
-      ->middleware(['auth']) // Pastikan hanya user yang login bisa akses
-      ->name('orders.uploadPaymentProof');
+    Route::post('/pesanan/{order}/upload-bukti', [OrderController::class, 'uploadProof'])->name('pesanan.upload_bukti');
 
     // Rute untuk halaman layanan
     Route::get('/services/custom-rom', function () {

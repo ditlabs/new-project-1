@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('orders', function (Blueprint $table) {
-            // Tambahkan kolom ini setelah kolom lain, misalnya 'status'
-            $table->string('payment_proof')->nullable()->after('status');
+            // Tambahkan kolom untuk menyimpan path file, bisa null karena awalnya kosong
+            $table->string('payment_proof_path')->nullable()->after('status');
         });
     }
 

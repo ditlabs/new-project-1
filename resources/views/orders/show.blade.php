@@ -48,6 +48,37 @@
                         </div>
                     </div>
 
+                    {{-- Ganti blok "Unggah Bukti Pembayaran" di show.blade.php dengan ini --}}
+
+                    <div class="border-t pt-6">
+
+                        {{-- Kondisi 1: Tampilkan formulir JIKA statusnya "Belum Dikonfirmasi" DAN bukti belum pernah diunggah. --}}
+                        @if ($order->status == 'Belum Dikonfirmasi' && !$order->payment_proof_path)
+                            <h3 class="font-semibold mb-4 text-lg">Unggah Bukti Pembayaran</h3>
+                            <p class="text-sm text-gray-600 mb-4">Silakan unggah bukti transfer Anda di sini. Format yang diterima adalah JPG, PNG, atau JPEG (maks. 2MB).</p>
+                            
+                            <form action="{{ route('pesanan.upload_bukti', $order) }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="flex items-center gap-4">
+                                    <input type="file" name="bukti_pembayaran" required class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"/>
+                                    <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors whitespace-nowrap">Kirim</button>
+                                </div>
+                                @error('bukti_pembayaran')
+                                    <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
+                                @enderror
+                            </form>
+
+                        {{-- Kondisi 2: Tampilkan pesan konfirmasi JIKA bukti SUDAH pernah diunggah. --}}
+                        @elseif($order->payment_proof_path)
+                            <h3 class="font-semibold mb-4 text-lg">Bukti Pembayaran Terkirim</h3>
+                            <div class="bg-green-50 border-l-4 border-green-400 text-green-700 p-4 rounded-md" role="alert">
+                                <p class="font-bold">Terima Kasih!</p>
+                                <p>Bukti pembayaran Anda telah berhasil dikirim dan sedang menunggu verifikasi oleh tim kami.</p>
+                            </div>
+                        @endif
+
+                    </div>
+
                     <div class="border-t pt-6">
                         <h3 class="font-semibold mb-2">Informasi Toko</h3>
                         <div class="mt-2 bg-gray-100 p-3 rounded-lg">

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use App\Models\OrderDetail; // Pastikan model ini di-import
+use App\Models\OrderDetail;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,9 +17,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        // Ambil semua pesanan milik pengguna yang sedang login
         $orders = Order::where('user_id', Auth::id())
-                        ->with('details.produk') // Mengambil rincian pesanan dan produk terkait
+                        ->with('details.produk')
                         ->latest()
                         ->paginate(5);
 
@@ -27,12 +26,22 @@ class OrderController extends Controller
     }
 
     /**
-     * Refactored: Membuat pesanan untuk alur "Beli Sekarang"
-     * menggunakan sistem order dan order_details.
+     * Menampilkan detail pesanan tertentu milik pengguna.
+     */
+    public function show($id)
+    {
+        $order = Order::where('user_id', Auth::id())
+                        ->with('details.produk')
+                        ->findOrFail($id);
+
+        return view('orders.show', compact('order'));
+    }
+
+    /**
+     * Membuat pesanan untuk alur "Beli Sekarang".
      */
     public function checkoutNow(Request $request)
     {
-        // Validasi input
         $request->validate([
             'produk_id' => 'required|exists:produks,id',
             'quantity' => 'required|integer|min:1',
@@ -42,18 +51,14 @@ class OrderController extends Controller
         $user = Auth::user();
         $totalPrice = $produk->harga_produk * $request->quantity;
 
-        // Memulai transaksi database untuk memastikan semua data konsisten
         DB::beginTransaction();
-
         try {
-            // 1. Buat "kepala nota" di tabel orders
             $order = Order::create([
                 'user_id' => $user->id,
                 'total_price' => $totalPrice,
-                'status' => 'belum_dikonfirmasi',
+                'status' => 'Belum Dikonfirmasi', // Pastikan status sesuai dengan yang Anda inginkan
             ]);
 
-            // 2. Buat "rincian barang" di tabel order_details
             OrderDetail::create([
                 'order_id' => $order->id,
                 'produk_id' => $produk->id,
@@ -61,10 +66,8 @@ class OrderController extends Controller
                 'price' => $produk->harga_produk,
             ]);
 
-            // Jika semua berhasil, simpan perubahan
             DB::commit();
 
-            // Kirim response berhasil
             return response()->json([
                 'buyer_name' => $user->name,
                 'product_name' => $produk->nama_produk,
@@ -72,55 +75,31 @@ class OrderController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            // Jika ada error, batalkan semua yang sudah disimpan
             DB::rollBack();
-
-            // Log error untuk debugging (opsional tapi sangat direkomendasikan)
-            // Log::error('Checkout Error: ' . $e->getMessage());
-
-            // Kirim response error
             return response()->json(['message' => 'Terjadi kesalahan saat membuat pesanan.'], 500);
         }
     }
 
-    public function show(Order $order)
+    /**
+     * Mengunggah bukti pembayaran untuk pesanan tertentu.
+     */
+    public function uploadProof(Request $request, Order $order)
     {
-        // Pastikan pengguna hanya bisa melihat pesanannya sendiri
-        if ($order->user_id !== auth()->id()) {
-            abort(403);
-        }
-
-        // Ambil data detail pesanan beserta produknya
-        $order->load('details.produk');
-
-        return view('orders.show', compact('order'));
-    }
-
-    public function uploadPaymentProof(Request $request, Order $order)
-    {
-        // 1. Otorisasi: Pastikan user yang upload adalah pemilik order
-        // Ini sangat penting untuk keamanan!
-        if (auth()->id() !== $order->user_id) {
-            abort(403, 'Anda tidak memiliki akses untuk pesanan ini.');
-        }
-
-        // 2. Validasi: Pastikan file yang diupload valid
+        // 1. Validasi input
         $request->validate([
-            'payment_proof' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Wajib, gambar, maks 2MB
+            'bukti_pembayaran' => 'required|image|mimes:jpg,jpeg,png|max:2048', // Lebih baik menggunakan 'image' daripada 'file'
         ]);
 
-        // 3. Simpan File ke Storage
-        // Menggunakan store() akan otomatis membuat nama file unik
-        $filePath = $request->file('payment_proof')->store('payment_proofs', 'public');
+        // 2. Simpan file di folder public agar bisa diakses
+        // File akan disimpan di: storage/app/public/bukti_pembayaran
+        $path = $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public');
 
-        // 4. Update Database
-        // Simpan path file ke dalam kolom 'payment_proof' di order yang sesuai
-        $order->update([
-            'payment_proof' => $filePath,
-            'status' => 'menunggu_konfirmasi' // Opsional: Ubah status pesanan
-        ]);
-
-        // 5. Redirect dengan Pesan Sukses
-        return redirect()->back()->with('success', 'Bukti pembayaran berhasil diunggah!');
+        // 3. Update kolom payment_proof_path di database
+        $order->payment_proof_path = $path;
+        // Status tidak diubah, biarkan tetap 'Belum Dikonfirmasi' untuk verifikasi admin
+        $order->save();
+        
+        // 4. Kembali ke halaman sebelumnya dengan pesan sukses
+        return back()->with('success', 'Bukti pembayaran berhasil diunggah dan sedang menunggu verifikasi.');
     }
 }

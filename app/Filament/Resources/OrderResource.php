@@ -14,6 +14,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\ViewField;
 
 class OrderResource extends Resource
 {
@@ -46,13 +47,21 @@ class OrderResource extends Resource
                                 return new \Illuminate\Support\HtmlString($content);
                             }),
                     ])->columns(1),
-                    
-                Section::make('Bukti Pembayaran')
-                    ->schema([
-                        Placeholder::make('bukti_pembayaran')
-                            ->label('Bukti Pembayaran')
-                            ->content(fn ($record) => $record->payment_proof ? 'Tersedia' : 'Tidak Tersedia'),
-                    ]),
+
+            Section::make('Verifikasi Pembayaran')
+                ->schema([
+                    // Tampilkan gambar jika bukti pembayaran ada
+                    ViewField::make('payment_proof_path')
+                        ->label('Bukti Pembayaran Pelanggan')
+                        ->view('filament.forms.components.image-viewer') // Kita akan buat file view ini
+                        ->visible(fn($record) => $record?->payment_proof_path), // Hanya tampil jika ada path
+
+                    // Tampilkan pesan jika bukti pembayaran tidak ada
+                    Placeholder::make('no_proof')
+                        ->label('Bukti Pembayaran Pelanggan')
+                        ->content('Pelanggan belum mengunggah bukti pembayaran.')
+                        ->visible(fn($record) => !$record?->payment_proof_path), // Hanya tampil jika tidak ada path
+                ]),
 
                 Section::make('Update Status')
                     ->schema([
