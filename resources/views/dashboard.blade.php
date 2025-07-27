@@ -42,6 +42,9 @@
         </div>
     </div>
 
+    <!-- Testimonials Section -->
+    <x-testimonials/>
+
     @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function () {
