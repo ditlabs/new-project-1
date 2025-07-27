@@ -10,11 +10,10 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\ViewField;
+use Illuminate\Support\Facades\Storage;
 
 class OrderResource extends Resource
 {
@@ -28,11 +27,6 @@ class OrderResource extends Resource
             ->schema([
                 Section::make('Detail Pesanan')
                     ->schema([
-                        // Menampilkan ID Pesanan
-                        Placeholder::make('order_id')
-                            ->label('ID Pesanan')
-                            ->content(fn ($record): string => '#' . str_pad($record->id, 6, '0', STR_PAD_LEFT)),
-
                         Placeholder::make('nama_pembeli')
                             ->label('Nama Pembeli')
                             ->content(fn ($record) => $record->user->name),
@@ -41,7 +35,6 @@ class OrderResource extends Resource
                             ->label('Total Harga')
                             ->content(fn ($record) => 'Rp. ' . number_format($record->total_price, 0, ',', '.')),
                         
-                        // Menampilkan daftar produk yang dibeli
                         Placeholder::make('rincian_produk')
                             ->label('Rincian Produk')
                             ->content(function ($record) {
@@ -53,20 +46,19 @@ class OrderResource extends Resource
                             }),
                     ])->columns(1),
 
-            Section::make('Verifikasi Pembayaran')
-                ->schema([
-                    // Tampilkan gambar jika bukti pembayaran ada
-                    ViewField::make('payment_proof_path')
-                        ->label('Bukti Pembayaran Pelanggan')
-                        ->view('filament.forms.components.image-viewer') // Kita akan buat file view ini
-                        ->visible(fn($record) => $record?->payment_proof_path), // Hanya tampil jika ada path
-
-                    // Tampilkan pesan jika bukti pembayaran tidak ada
-                    Placeholder::make('no_proof')
-                        ->label('Bukti Pembayaran Pelanggan')
-                        ->content('Pelanggan belum mengunggah bukti pembayaran.')
-                        ->visible(fn($record) => !$record?->payment_proof_path), // Hanya tampil jika tidak ada path
-                ]),
+                Section::make('Bukti Pembayaran')
+                    ->visible(fn ($record) => $record?->payment_proof) // Menggunakan 'payment_proof'
+                    ->schema([
+                        Placeholder::make('bukti_transfer')
+                            ->label('Gambar Bukti Transfer')
+                            ->content(function ($record) {
+                                if ($record?->payment_proof) {
+                                    $url = Storage::url($record->payment_proof);
+                                    return new \Illuminate\Support\HtmlString("<a href='{$url}' target='_blank'><img src='{$url}' alt='Bukti Transfer' style='max-width: 300px; height: auto; border-radius: 8px;'></a>");
+                                }
+                                return null;
+                            }),
+                    ]),
 
                 Section::make('Update Status')
                     ->schema([
@@ -87,20 +79,16 @@ class OrderResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')
-                    ->label('ID Pesanan')
-                    ->formatStateUsing(fn (string $state): string => '#' . str_pad($state, 6, '0', STR_PAD_LEFT))
-                    ->searchable()
-                    ->sortable(),
                 TextColumn::make('user.name')->label('Nama Pembeli')->searchable()->sortable(),
                 TextColumn::make('total_price')->label('Total Harga')->money('IDR')->sortable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
+                    ->color(fn (string $state): string => match (strtolower($state)) {
                         'belum_dikonfirmasi' => 'warning',
                         'diproses' => 'primary',
                         'selesai' => 'success',
                         'dibatalkan' => 'danger',
+                        default => 'gray', // Menangani kasus tak terduga lainnya
                     })
                     ->searchable(),
                 TextColumn::make('created_at')->label('Tanggal Pesan')->dateTime()->sortable(),

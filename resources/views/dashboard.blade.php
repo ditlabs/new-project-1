@@ -45,6 +45,9 @@
     <!-- Testimonials Section -->
     <x-testimonials/>
 
+    {{-- Footer --}}
+    <x-footer/>
+    
     @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function () {

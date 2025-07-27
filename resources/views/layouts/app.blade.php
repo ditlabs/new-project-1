@@ -188,6 +188,6 @@
                 // Memperbarui badge saat halaman pertama kali dimuat
                 updateCartBadge();
             });
-        </script>
+        </script>   
         </body>
 </html>

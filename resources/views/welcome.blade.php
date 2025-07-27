@@ -61,6 +61,10 @@
 
     <!-- Testimonials Section -->
     <x-testimonials/>
+
+    <!-- Footer -->
+    <x-footer/>
+
     @if (Route::has('login'))
         <div class="h-14.5 hidden lg:block"></div>
     @endif
