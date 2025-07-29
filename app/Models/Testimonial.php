@@ -9,16 +9,25 @@ class Testimonial extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'title',
         'quote',
-        'avatar', // <-- Tambahkan ini
         'is_visible',
+        // Tambahkan kolom baru di sini
+        'user_id',
+        'produk_id',
+        'rating',
     ];
+
+    // Tambahkan relasi ini
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function produk()
+    {
+        return $this->belongsTo(Produk::class);
+    }
 }

@@ -7,6 +7,8 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ReviewController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -74,5 +76,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/services/consultation-support', function () {
         return view('services.consultation-support');
     })->name('services.consultation-support');
+
+    Route::post('/review/{produk}', [ReviewController::class, 'store'])->name('review.store')->middleware('auth');
 });
 require __DIR__.'/auth.php';
