@@ -1,4 +1,4 @@
-<section class="hero-bg py-16 md:py-24 mt-8">
+<section class="hero-bg xl:pt-36 xl:pb-72 md:py-24 mt-8">
       <div class="container">
         <div class="flex flex-col lg:flex-row items-center">
           <!-- Hero Content -->
@@ -7,15 +7,16 @@
               Enchance your Android <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-green-400">Performance now!</span>
             </h1>
             <p class="text-xl text-gray-600 mb-8 max-w-xl">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi rerum autem nostrum esse, veniam excepturi nihil suscipit earum possimus tempora!
+              Kami menyediakan solusi modding android untuk meningkatkan performa, fungsionalitas, dan daya tahan baterai perangkat Anda ke level berikutnya.
             </p>
             <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-              <button class="bg-green-500 px-8 py-4 rounded-full text-lg font-medium">
-                Get Started Now
-              </button>
-              <button class="px-8 py-4 rounded-full text-lg font-medium border-2 border-green-500 text-green-600 hover:bg-green-50 transition">
-                View Our Work
-              </button>
+              <a href="/#service" class="bg-green-500 px-8 py-4 rounded-full text-lg font-medium text-white hover:bg-green-600 transition">
+                  Get Started Now
+              </a>
+
+              <a href="/#about" class="px-8 py-4 rounded-full text-lg font-medium border-2 border-green-500 text-green-600 hover:bg-green-50 transition">
+                  View Our Work
+              </a>
             </div>
             <div class="mt-10 flex items-center">
               <div class="flex -space-x-3">
