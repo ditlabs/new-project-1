@@ -11,7 +11,9 @@ class Order extends Model
     'produk_id',
     'quantity',
     'total_price',
-    'status'
+    'status',
+    'shipping_address',
+    'tracking_number',
 ];
 
     public function user()

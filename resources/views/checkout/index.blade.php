@@ -59,9 +59,28 @@
                             <input type="hidden" name="buy_now_produk_id" value="{{ $cartItems->first()->produk->id }}">
                             <input type="hidden" name="buy_now_quantity" value="{{ $cartItems->first()->quantity }}">
                         @endif
-                        <x-primary-button class="w-full text-center">
+
+                        <div class="pt-6 mt-6">
+                            <h3 class="text-lg font-semibold mb-4">Alamat Pengiriman</h3>
+                            <div>
+                                <label for="shipping_address" class="block text-sm font-medium text-gray-700">Alamat Lengkap</label>
+                                <textarea 
+                                    name="shipping_address" 
+                                    id="shipping_address" 
+                                    rows="4" 
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" 
+                                    placeholder="Contoh: Jl. Teknologi No. 123, Kel. Sukapura, Kec. Cibiru, Kota Bandung, Jawa Barat, 40294" 
+                                    required></textarea>
+                                @error('shipping_address')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <x-primary-button class="w-full text-center mt-3">
                             <span class="w-full">Konfirmasi & Buat Pesanan</span>
                         </x-primary-button>
+                        
                     </form>
                 </div>
             </div>

@@ -9,6 +9,7 @@ use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CheckoutController extends Controller
 {
@@ -58,6 +59,10 @@ class CheckoutController extends Controller
      */
     public function process(Request $request)
     {
+        $request->validate([
+            'shipping_address' => 'required|string|max:1000',
+        ]);
+
         $user = Auth::user();
         $itemsToProcess = collect();
         $isBuyNow = $request->input('is_buy_now') == '1';
@@ -73,7 +78,7 @@ class CheckoutController extends Controller
         } 
         // Skenario 2: Memproses dari Keranjang
         else {
-            $itemsToProcess = Cart::where('user_id', $user->id)->get();
+            $itemsToProcess = Cart::where('user_id', $user->id)->with('produk')->get();
         }
 
         if ($itemsToProcess->isEmpty()) {
@@ -90,6 +95,7 @@ class CheckoutController extends Controller
                 'user_id' => $user->id,
                 'total_price' => $totalPrice,
                 'status' => 'belum_dikonfirmasi',
+                'shipping_address' => $request->shipping_address,
             ]);
 
             foreach ($itemsToProcess as $item) {

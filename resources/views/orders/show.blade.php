@@ -44,6 +44,43 @@
                         @endforeach
                     </div>
 
+                    {{-- ====================================================== --}}
+                    {{-- BAGIAN: Alamat & Resi --}}
+                    {{-- ====================================================== --}}
+                    <div class="border-t pt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="font-semibold mb-2">Alamat Pengiriman</h3>
+                            <div class="text-sm text-gray-600 leading-relaxed">
+                                {{-- Kita asumsikan alamat disimpan dalam satu kolom --}}
+                                {{-- Jika $order->shipping_address kosong, tampilkan pesan --}}
+                                {!! nl2br(e($order->shipping_address ?? 'Alamat tidak tersedia.')) !!}
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-2">Informasi Pengirim</h3>
+                            <div class="text-sm text-gray-600 leading-relaxed">
+                                <strong>Ditlabs</strong><br>
+                                Jalan Teknologi No. 123, Cibiru<br>
+                                Bandung, 40294
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Tampilkan Nomor Resi HANYA jika status sudah 'diproses' atau 'selesai' --}}
+                    @if ($order->status == 'diproses' || $order->status == 'selesai')
+                        <div class="border-t pt-6">
+                            <h3 class="font-semibold mb-2">Lacak Pengiriman</h3>
+                            @if ($order->tracking_number)
+                                <p class="text-sm text-gray-600">Nomor Resi Anda:</p>
+                                <p class="font-mono text-lg font-bold text-indigo-600 bg-gray-100 p-2 rounded-md mt-1">
+                                    {{ $order->tracking_number }}
+                                </p>
+                            @else
+                                <p class="text-sm text-gray-500">Nomor resi akan segera diupdate oleh admin.</p>
+                            @endif
+                        </div>
+                    @endif
+
                     {{-- Bagian Rincian Pembayaran (Selalu Tampil) --}}
                     <div class="border-t pt-6 space-y-2">
                         <h3 class="font-semibold mb-4">Rincian Pembayaran</h3>

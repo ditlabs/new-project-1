@@ -14,6 +14,9 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Placeholder;
 use Illuminate\Support\Facades\Storage;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\ViewField;
 
 class OrderResource extends Resource
 {
@@ -44,6 +47,19 @@ class OrderResource extends Resource
                                 }
                                 return new \Illuminate\Support\HtmlString($content);
                             }),
+                    ])->columns(1),
+
+                Section::make('Informasi Pengiriman')
+                    ->schema([
+                        // Tampilkan alamat (hanya bisa dibaca, tidak bisa diedit)
+                        Textarea::make('shipping_address')
+                            ->label('Alamat Pengiriman Pelanggan')
+                            ->rows(4)
+                            ->disabled(),
+
+                        TextInput::make('tracking_number')
+                            ->label('Nomor Resi Pengiriman')
+                            ->placeholder('Masukkan nomor resi disini')
                     ])->columns(1),
 
                 Section::make('Bukti Pembayaran')
