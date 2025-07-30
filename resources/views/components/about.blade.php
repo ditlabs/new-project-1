@@ -21,7 +21,7 @@
                 </div>
                 <div>
                   <h4 class="font-bold text-gray-800">Jam terbang Tinggi</h4>
-                  <p class="text-gray-600">Kami berpengalaman selama 2 Tahun lebih dalam bidang ini/p>
+                  <p class="text-gray-600">Kami berpengalaman selama 2 Tahun lebih dalam bidang ini</p>
                 </div>
               </div>
               <div class="flex items-start">

@@ -11,11 +11,11 @@
             </p>
             <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
               <a href="/#service" class="bg-green-500 px-8 py-4 rounded-full text-lg font-medium text-white hover:bg-green-600 transition">
-                  Get Started Now
+                  Mulai Sekarang
               </a>
 
               <a href="/#about" class="px-8 py-4 rounded-full text-lg font-medium border-2 border-green-500 text-green-600 hover:bg-green-50 transition">
-                  View Our Work
+                  Lihat Pekerjaan Kami
               </a>
             </div>
             <div class="mt-10 flex items-center">
@@ -26,7 +26,7 @@
                 <div class="w-10 h-10 rounded-full bg-green-500 border-2 border-white flex items-center justify-center text-white font-medium">+15</div>
               </div>
               <div class="ml-4">
-                <p class="font-medium text-gray-800">Trusted by customer</p>
+                <p class="font-medium text-gray-800">Dipercaya oleh para pelanggan</p>
                 <div class="flex items-center">
                   <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
