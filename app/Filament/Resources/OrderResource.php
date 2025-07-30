@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\OrderResource\Pages;
 use App\Models\Order;
 use Filament\Forms;
+use Filament\Forms\Components\Actions;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Storage;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ViewField;
+use Filament\Forms\Components\Actions\Action;
+
 
 class OrderResource extends Resource
 {
@@ -62,18 +65,37 @@ class OrderResource extends Resource
                             ->placeholder('Masukkan nomor resi disini')
                     ])->columns(1),
 
-                Section::make('Bukti Pembayaran')
-                    ->visible(fn ($record) => $record?->payment_proof) // Menggunakan 'payment_proof'
+                Section::make('Verifikasi Pembayaran')
                     ->schema([
-                        Placeholder::make('bukti_transfer')
-                            ->label('Gambar Bukti Transfer')
-                            ->content(function ($record) {
-                                if ($record?->payment_proof) {
-                                    $url = Storage::url($record->payment_proof);
-                                    return new \Illuminate\Support\HtmlString("<a href='{$url}' target='_blank'><img src='{$url}' alt='Bukti Transfer' style='max-width: 300px; height: auto; border-radius: 8px;'></a>");
-                                }
-                                return null;
-                            }),
+                        // Tampilkan gambar jika bukti pembayaran ada
+                        ViewField::make('payment_proof_path')
+                            ->label('Bukti Pembayaran Pelanggan')
+                            ->view('filament.forms.components.image-viewer')
+                            ->visible(fn ($record) => $record?->payment_proof_path),
+
+                        // Tampilkan pesan jika bukti pembayaran tidak ada
+                        Placeholder::make('no_proof')
+                            ->label('Bukti Pembayaran Pelanggan')
+                            ->content('Pelanggan belum mengunggah bukti pembayaran.')
+                            ->visible(fn ($record) => !$record?->payment_proof_path),
+
+                        // Tombol untuk menghapus bukti pembayaran
+                        Actions::make([
+                            Action::make('delete_proof')
+                                ->label('Hapus Bukti Pembayaran')
+                                ->icon('heroicon-o-trash')
+                                ->color('danger')
+                                ->requiresConfirmation()
+                                ->modalHeading('Hapus bukti pembayaran?')
+                                ->modalDescription('Aksi ini akan menghapus file bukti pembayaran. Pelanggan akan diminta untuk mengunggah ulang.')
+                                ->action(function ($record) {
+                                    if ($record->payment_proof_path) {
+                                        Storage::disk('public')->delete($record->payment_proof_path);
+                                        $record->update(['payment_proof_path' => null]);
+                                    }
+                                })
+                                ->visible(fn ($record) => $record?->payment_proof_path),
+                        ])->maxWidth('sm'),
                     ]),
 
                 Section::make('Update Status')
