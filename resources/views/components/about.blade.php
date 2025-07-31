@@ -1,7 +1,7 @@
 <section id="about" class="py-20 bg-gray-50">
     <div class="container">
       <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold text-gray-800">About Ditlabs</h2>
+        <h2 class="text-4xl font-bold text-gray-800">About modverse.</h2>
         <p class="text-xl text-gray-600 max-w-2xl mx-auto mt-4">Kami memaksimalkan potensi tersembunyi perangkat Android Anda.</p>
       </div>
       
