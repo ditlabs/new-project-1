@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\ProdukResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ProdukResource\RelationManagers;
+use Filament\Forms\Components\RichEditor;
 
 class ProdukResource extends Resource
 {
@@ -33,6 +34,16 @@ class ProdukResource extends Resource
                 \Filament\Forms\Components\TextInput::make('harga_produk')->required()->numeric()->prefix('Rp'),
                 \Filament\Forms\Components\Textarea::make('deskripsi_produk')->required()->maxLength(255)->columnSpanFull(),
                 \Filament\Forms\Components\FileUpload::make('gambar_produk')->image()->disk('public')->columnSpanFull(),
+            
+                RichEditor::make('spesifikasi')
+                ->label('Spesifikasi Produk')
+                ->placeholder('Contoh: - Bahan: Katun Premium...')
+                ->columnSpanFull(),
+
+                RichEditor::make('info_pengiriman')
+                    ->label('Informasi Pengiriman')
+                    ->placeholder('Contoh: Pesanan akan diproses dalam 1-2 hari kerja...')
+                    ->columnSpanFull(),
             ]);
     }
 

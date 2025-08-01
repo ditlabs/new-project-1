@@ -25,7 +25,7 @@
                 <p class="text-gray-700 leading-relaxed">Terkadang, versi Android terbaru bukanlah yang terbaik untuk Anda. Mungkin aplikasi favorit tidak lagi kompatibel, atau Anda ingin kembali ke versi yang lebih stabil. Layanan ini memungkinkan Anda untuk secara manual mengganti versi OS Android di luar pembaruan resmi dari produsen.</p>
             </div>
             <div class="md:w-1/2">
-                <img src="https://images.unsplash.com/photo-1603912698253-937d29515438?q=80&w=2070&auto=format&fit=crop" alt="Ilustrasi Upgrade Downgrade OS" class="rounded-lg shadow-lg w-full h-auto object-cover">
+                <img src="{{ asset('storage/Upgrade and Downgrade.png') }}" alt="Ilustrasi Upgrade Downgrade OS" class="rounded-lg shadow-lg w-full h-auto object-cover">
             </div>
         </section>
 

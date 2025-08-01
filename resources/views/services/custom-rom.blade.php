@@ -12,8 +12,8 @@
 
         {{-- Header --}}
         <header class="text-center mb-16 reveal-on-scroll">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-900">Layanan Root & Unlock</h1>
-            <p class="mt-4 text-lg text-gray-600">Dapatkan akses administratif penuh (Superuser) untuk kontrol tanpa batas atas perangkat Android Anda.</p>
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900">Layanan Custom ROM Android</h1>
+            <p class="mt-4 text-lg text-gray-600">Rasakan pengalaman Android yang lebih cepat, fitur eksklusif, dan tampilan yang sepenuhnya dapat disesuaikan dengan pemasangan Custom ROM pada perangkat Anda.</p>
         </header>
 
         <hr class="my-16 border-gray-200">
@@ -22,10 +22,12 @@
         <section class="flex flex-col md:flex-row items-center gap-12 reveal-on-scroll">
             <div class="md:w-1/2">
                 <h2 class="text-3xl font-bold mb-4 text-gray-900">Deskripsi Layanan</h2>
-                <p class="text-gray-700 leading-relaxed">Rooting adalah proses untuk mendapatkan hak akses tertinggi pada sistem Android Anda. Ini seperti menjadi "administrator" di komputer Anda sendiri, memungkinkan Anda melewati batasan pabrikan, memodifikasi file sistem, dan menjalankan aplikasi canggih yang memerlukan izin khusus.</p>
+                <p class="text-gray-700 leading-relaxed">
+                    Custom ROM adalah sistem operasi Android yang telah dimodifikasi oleh komunitas atau pengembang independen. Dengan memasang Custom ROM, Anda dapat menikmati fitur-fitur terbaru, performa yang lebih optimal, tampilan yang unik, serta kontrol penuh atas perangkat Anda. Layanan kami membantu Anda memilih dan menginstal Custom ROM terbaik sesuai kebutuhan, tanpa ribet dan aman.
+                </p>
             </div>
             <div class="md:w-1/2">
-                <img src="https://images.unsplash.com/photo-1605146769289-424c3d194589?q=80&w=2070&auto=format&fit=crop" alt="Ilustrasi Root Android" class="rounded-lg shadow-lg w-full h-auto object-cover">
+                <img src="{{ asset('storage/Custom Rom Installation.png') }}" alt="Ilustrasi Custom ROM Android" class="rounded-lg shadow-lg w-full h-auto object-cover">
             </div>
         </section>
 
@@ -34,36 +36,36 @@
         {{-- Manfaat Utama --}}
         <section class="reveal-on-scroll">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-900">Manfaat Utama</h2>
-                <p class="mt-2 text-gray-600">Kekuatan dan kontrol yang bisa Anda dapatkan.</p>
+                <h2 class="text-3xl font-bold text-gray-900">Manfaat Utama Custom ROM</h2>
+                <p class="mt-2 text-gray-600">Keunggulan yang bisa Anda dapatkan dengan Custom ROM.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="bg-gray-50 p-6 rounded-lg border border-gray-200 flex items-start gap-4">
-                    <div class="text-3xl mt-1">🔧</div>
+                    <div class="text-3xl mt-1">🚀</div>
                     <div>
-                        <h3 class="font-bold text-lg mb-1">Modifikasi Tanpa Batas</h3>
-                        <p class="text-sm text-gray-600">Menginstal framework seperti Magisk atau Xposed untuk kustomisasi tingkat lanjut yang mustahil dilakukan sebelumnya.</p>
+                        <h3 class="font-bold text-lg mb-1">Performa Lebih Cepat</h3>
+                        <p class="text-sm text-gray-600">Custom ROM seringkali lebih ringan dan dioptimalkan sehingga perangkat Anda berjalan lebih lancar dan responsif.</p>
                     </div>
                 </div>
                 <div class="bg-gray-50 p-6 rounded-lg border border-gray-200 flex items-start gap-4">
-                    <div class="text-3xl mt-1">🗑️</div>
+                    <div class="text-3xl mt-1">🎨</div>
                     <div>
-                        <h3 class="font-bold text-lg mb-1">Hapus Bloatware Total</h3>
-                        <p class="text-sm text-gray-600">Menghapus aplikasi bawaan pabrik yang tidak diinginkan secara permanen untuk melegakan memori.</p>
+                        <h3 class="font-bold text-lg mb-1">Tampilan & Tema Bebas</h3>
+                        <p class="text-sm text-gray-600">Ubah tampilan Android Anda dengan tema, ikon, dan fitur kustomisasi yang tidak tersedia di ROM bawaan.</p>
                     </div>
                 </div>
                  <div class="bg-gray-50 p-6 rounded-lg border border-gray-200 flex items-start gap-4">
-                    <div class="text-3xl mt-1">💾</div>
+                    <div class="text-3xl mt-1">🔋</div>
                     <div>
-                        <h3 class="font-bold text-lg mb-1">Backup & Restore Menyeluruh</h3>
-                        <p class="text-sm text-gray-600">Lakukan backup seluruh sistem, termasuk data aplikasi, dengan alat canggih seperti Titanium Backup.</p>
+                        <h3 class="font-bold text-lg mb-1">Hemat Baterai</h3>
+                        <p class="text-sm text-gray-600">Beberapa Custom ROM menawarkan pengelolaan baterai yang lebih baik sehingga perangkat lebih awet digunakan seharian.</p>
                     </div>
                 </div>
                  <div class="bg-gray-50 p-6 rounded-lg border border-gray-200 flex items-start gap-4">
-                    <div class="text-3xl mt-1">⚙️</div>
+                    <div class="text-3xl mt-1">🛡️</div>
                     <div>
-                        <h3 class="font-bold text-lg mb-1">Akses Aplikasi Eksklusif</h3>
-                        <p class="text-sm text-gray-600">Menjalankan aplikasi canggih yang memerlukan izin root untuk firewall, otomatisasi, dan tweaking mendalam.</p>
+                        <h3 class="font-bold text-lg mb-1">Kontrol Privasi & Fitur Eksklusif</h3>
+                        <p class="text-sm text-gray-600">Nikmati fitur privasi tambahan, update keamanan lebih cepat, dan akses ke fitur eksklusif yang tidak ada di ROM pabrikan.</p>
                     </div>
                 </div>
             </div>
@@ -79,20 +81,24 @@
             <div class="max-w-3xl mx-auto space-y-4">
                 <div class="faq-item border border-gray-200 rounded-lg">
                     <button class="faq-question w-full text-left font-semibold cursor-pointer p-4 flex justify-between items-center gap-4">
-                        <span>Apa risiko terbesar dari melakukan root?</span>
+                        <span>Apa risiko terbesar dari memasang Custom ROM?</span>
                         <svg class="w-5 h-5 text-gray-500 transform transition-transform duration-300 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                     </button>
                     <div class="faq-content">
-                        <p class="p-4 pt-0 text-gray-600">Risiko utama ada dua: potensi celah keamanan jika Anda memberikan izin root ke aplikasi yang tidak terpercaya, dan hilangnya garansi resmi dari produsen. Kami akan memandu Anda untuk memitigasi risiko ini.</p>
+                        <p class="p-4 pt-0 text-gray-600">
+                            Risiko utama adalah kemungkinan kehilangan garansi, bug pada ROM yang belum stabil, atau kegagalan instalasi yang dapat menyebabkan bootloop. Namun, kami akan memastikan proses instalasi dilakukan dengan aman dan backup data sebelum memulai.
+                        </p>
                     </div>
                 </div>
                 <div class="faq-item border border-gray-200 rounded-lg">
                     <button class="faq-question w-full text-left font-semibold cursor-pointer p-4 flex justify-between items-center gap-4">
-                        <span>Apakah proses root bisa dibatalkan (unroot)?</span>
+                        <span>Apakah bisa kembali ke ROM bawaan setelah menggunakan Custom ROM?</span>
                         <svg class="w-5 h-5 text-gray-500 transform transition-transform duration-300 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                     </button>
                     <div class="faq-content">
-                        <p class="p-4 pt-0 text-gray-600">Ya. Dengan metode modern seperti Magisk, proses root sepenuhnya dapat dibatalkan (unroot). Anda bahkan dapat menyembunyikan status root dari aplikasi tertentu (seperti aplikasi perbankan) agar tetap berfungsi normal.</p>
+                        <p class="p-4 pt-0 text-gray-600">
+                            Tentu saja! Anda dapat kembali ke ROM bawaan (stock ROM) kapan saja dengan melakukan flashing ulang. Kami juga menyediakan layanan untuk mengembalikan perangkat ke kondisi semula jika dibutuhkan.
+                        </p>
                     </div>
                 </div>
             </div>

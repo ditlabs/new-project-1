@@ -60,14 +60,10 @@
                 </div>
                 <div class="py-6">
                     <div x-show="openTab === 'spesifikasi'" class="prose max-w-none">
-                        <ul>
-                            <li><strong>Bahan:</strong> Katun Premium</li>
-                            <li><strong>Ukuran:</strong> All Size Fit to L</li>
-                            <li><strong>Perawatan:</strong> Cuci dengan tangan, jangan gunakan pemutih.</li>
-                        </ul>
+                            {!! $produk->spesifikasi !!}
                     </div>
                     <div x-show="openTab === 'pengiriman'" class="prose max-w-none">
-                        <p>Pesanan akan diproses dalam 1-2 hari kerja. Estimasi pengiriman untuk wilayah Jabodetabek adalah 2-3 hari, dan untuk luar Jabodetabek 3-7 hari. Biaya pengiriman standar Rp 10.000 ke seluruh Indonesia.</p>
+                            {!! $produk->info_pengiriman !!}
                     </div>
                 </div>
             </div>

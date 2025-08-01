@@ -26,7 +26,7 @@
             </div>
             <div class="md:w-1/2">
                 {{-- Gambar yang disarankan: dashboard/speedometer atau adegan gaming --}}
-                <img src="https://images.unsplash.com/photo-1593786267439-1b58872935c2?q=80&w=2072&auto=format&fit=crop" alt="Ilustrasi Tweak Performa" class="rounded-lg shadow-lg w-full h-auto object-cover">
+                <img src="{{ asset('storage/Tweaking Performance.png') }}" alt="Ilustrasi Tweak Performa" class="rounded-lg shadow-lg w-full h-auto object-cover">
             </div>
         </section>
 

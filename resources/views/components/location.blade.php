@@ -28,7 +28,7 @@
                 </svg>
                 </div>
                 <div>
-                <h4 class="font-bold text-gray-900 text-lg">Ditlabs Android</h4>
+                <h4 class="font-bold text-gray-900 text-lg">modverse. Android</h4>
                 <p class="text-gray-700">Dipatiukur, Sekeloa, Bandung City, Indonesia</p>
                 </div>
             </div>

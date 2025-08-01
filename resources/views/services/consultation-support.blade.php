@@ -25,7 +25,7 @@
                 <p class="text-gray-700 leading-relaxed">Dunia modding Android bisa sangat membingungkan. Jika Anda ragu harus mulai dari mana, mengalami masalah seperti bootloop (soft-brick), atau butuh rekomendasi ahli sebelum memulai, layanan konsultasi kami adalah solusinya. Kami menyediakan keahlian kami untuk membantu Anda mencapai tujuan dengan aman dan efisien.</p>
             </div>
             <div class="md:w-1/2">
-                <img src="https://images.unsplash.com/photo-1556740758-90de374c12ad?q=80&w=2070&auto=format&fit=crop" alt="Ilustrasi Konsultasi Teknis" class="rounded-lg shadow-lg w-full h-auto object-cover">
+                <img src="{{ asset('storage/Consultation & Support.png') }}" alt="Ilustrasi Konsultasi Teknis" class="rounded-lg shadow-lg w-full h-auto object-cover">
             </div>
         </section>
 
