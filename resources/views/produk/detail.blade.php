@@ -82,14 +82,55 @@
                 const addToCartForm = document.getElementById('add-to-cart-form');
 
                 // Listener Kuantitas
-                btnPlus.addEventListener('click', () => { /* ... */ });
-                btnMinus.addEventListener('click', () => { /* ... */ });
+                btnPlus.addEventListener('click', () => { 
+                    quantityInput.value = parseInt(quantityInput.value) + 1;
+                });
+                btnMinus.addEventListener('click', () => { 
+                    let currentVal = parseInt(quantityInput.value);
+                    if (currentVal > 1) {
+                        quantityInput.value = currentVal - 1;
+                    }
+                });
 
                 // Listener "Tambah ke Keranjang"
-                addToCartForm.addEventListener('submit', function (event) { 
-                    event.preventDefault();
-                    // ... (logika fetch untuk tambah ke keranjang)
-                });
+                if (addToCartForm) {
+                    addToCartForm.addEventListener('submit', function (event) { 
+                        event.preventDefault();
+
+                        const formData = new FormData(this);
+                        // Tambahkan quantity dari input jika ingin mengirim ke backend
+                        formData.append('quantity', document.getElementById('quantity-input').value);
+
+                        fetch('{{ route("keranjang.add") }}', {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.message) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Berhasil!',
+                                    text: data.message,
+                                    timer: 1500,
+                                    showConfirmButton: false
+                                });
+                                document.dispatchEvent(new Event('cartUpdated'));
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal!',
+                                text: 'Terjadi kesalahan saat menambahkan ke keranjang.',
+                            });
+                        });
+                    });
+                }
 
                 // Listener "Beli Sekarang"
                 buyNowBtn.addEventListener('click', function() {
