@@ -27,7 +27,7 @@
                 </p>
             </div>
             <div class="md:w-1/2">
-                <img src="{{ asset('storage/Custom Rom Installation.png') }}" alt="Ilustrasi Custom ROM Android" class="rounded-lg shadow-lg w-full h-auto object-cover">
+                <img src="https://raw.githubusercontent.com/ditlabs/image-project-1/refs/heads/main/services/custom-rom.png" alt="Ilustrasi Custom ROM Android" class="rounded-lg shadow-lg w-full h-auto object-cover">
             </div>
         </section>
 

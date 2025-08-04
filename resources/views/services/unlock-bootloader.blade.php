@@ -25,7 +25,7 @@
                 <p class="text-gray-700 leading-relaxed">Bootloader adalah program pertama yang berjalan saat perangkat Anda menyala, berfungsi sebagai "penjaga gerbang" sistem. Layanan ini secara aman membuka kunci tersebut, yang merupakan syarat wajib sebelum Anda dapat menginstal Custom ROM, Custom Recovery (TWRP), atau mendapatkan akses root.</p>
             </div>
             <div class="md:w-1/2">
-                <img src="{{ asset('storage/Unlock Bootloader.png') }}" alt="Ilustrasi Unlock Bootloader" class="rounded-lg shadow-lg w-full h-auto object-cover">
+                <img src="https://raw.githubusercontent.com/ditlabs/image-project-1/refs/heads/main/services/unlock-bootloader.png" alt="Ilustrasi Unlock Bootloader" class="rounded-lg shadow-lg w-full h-auto object-cover">
             </div>
         </section>
 

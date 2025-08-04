@@ -25,7 +25,7 @@
                 <p class="text-gray-700 leading-relaxed">Rooting adalah proses untuk mendapatkan hak akses tertinggi pada sistem Android Anda. Ini seperti menjadi "administrator" di perangkat Anda sendiri, memungkinkan Anda melewati batasan pabrikan, memodifikasi file sistem, dan menjalankan aplikasi canggih yang memerlukan izin khusus.</p>
             </div>
             <div class="md:w-1/2">
-                <img src="{{ asset('storage/Root & Unlock .png') }}" alt="Ilustrasi Root Android" class="rounded-lg shadow-lg w-full h-auto object-cover">
+                <img src="https://raw.githubusercontent.com/ditlabs/image-project-1/refs/heads/main/services/root-magisk.jpg" alt="Ilustrasi Root Android" class="rounded-lg shadow-lg w-full h-auto object-cover">
             </div>
         </section>
 
