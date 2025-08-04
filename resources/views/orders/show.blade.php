@@ -9,7 +9,6 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-8 text-gray-900 space-y-6">
 
-                    {{-- Bagian Lacak Pesanan (Selalu Tampil) --}}
                     <div>
                         <h3 class="font-semibold mb-4 text-2xl">Lacak Pesanan</h3>
                         <h3 class="font-semibold text-lg">Detail Pesanan #{{ str_pad($order->id, 6, '0', STR_PAD_LEFT) }}
@@ -24,7 +23,6 @@
                         </p>
                     </div>
 
-                    {{-- Bagian Rincian Barang (Selalu Tampil) --}}
                     <div class="border-t pt-6">
                         <h3 class="font-semibold mb-4">Rincian Barang</h3>
                         @foreach ($order->details as $detail)
@@ -44,15 +42,10 @@
                         @endforeach
                     </div>
 
-                    {{-- ====================================================== --}}
-                    {{-- BAGIAN: Alamat & Resi --}}
-                    {{-- ====================================================== --}}
                     <div class="border-t pt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <h3 class="font-semibold mb-2">Alamat Pengiriman</h3>
                             <div class="text-sm text-gray-600 leading-relaxed">
-                                {{-- Kita asumsikan alamat disimpan dalam satu kolom --}}
-                                {{-- Jika $order->shipping_address kosong, tampilkan pesan --}}
                                 {!! nl2br(e($order->shipping_address ?? 'Alamat tidak tersedia.')) !!}
                             </div>
                         </div>
@@ -66,26 +59,21 @@
                         </div>
                     </div>
 
-                    {{-- DI DALAM FILE resources/views/orders/show.blade.php --}}
-
-{{-- Tampilkan bagian ini HANYA jika status sudah 'diproses' atau 'selesai' --}}
 @if ($order->status == 'diproses' || $order->status == 'selesai')
     <div class="border-t pt-6">
         <h3 class="font-semibold mb-2">Lacak Pengiriman</h3>
 
-        {{-- Jika nomor resi SUDAH ADA, tampilkan. --}}
         @if ($order->tracking_number)
             <p class="text-sm text-gray-600">Nomor Resi Anda:</p>
             <p class="font-mono text-lg font-bold text-indigo-600 bg-gray-100 p-2 rounded-md mt-1">
                 {{ $order->tracking_number }}
             </p>
         
-        {{-- Jika resi BELUM ADA dan status 'diproses', tampilkan form input. --}}
                             @elseif ($order->status == 'diproses')
                                 <p class="text-sm text-gray-600 mb-2">Silakan masukkan nomor resi pengiriman Anda di bawah ini.</p>
                                 <form action="{{ route('pesanan.add_resi', $order) }}" method="POST">
                                     @csrf
-                                    @method('PATCH') {{-- Gunakan PATCH untuk update --}}
+                                    @method('PATCH') 
                                     <div class="flex items-center gap-4">
                                         <input type="text" name="tracking_number" required
                                             class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" 
@@ -103,7 +91,6 @@
                         </div>
                     @endif
 
-                    {{-- Bagian Rincian Pembayaran (Selalu Tampil) --}}
                     <div class="border-t pt-6 space-y-2">
                         <h3 class="font-semibold mb-4">Rincian Pembayaran</h3>
                         <div class="flex justify-between">
@@ -120,11 +107,6 @@
                         </div>
                     </div>
 
-                    {{-- ======================================================================= --}}
-                    {{-- BLOK KONDISIONAL UTAMA (DIRAPIKAN) --}}
-                    {{-- ======================================================================= --}}
-
-                    {{-- Kondisi 1: Jika pesanan MENUNGGU PEMBAYARAN --}}
                     @if ($order->status == 'belum_dikonfirmasi' && !$order->payment_proof_path)
                         <div class="border-t pt-6">
                             <h3 class="font-semibold mb-4 text-lg">Unggah Bukti Pembayaran</h3>
@@ -145,7 +127,6 @@
                             </form>
                         </div>
 
-                    {{-- Kondisi 2: Jika BUKTI SUDAH DIUNGGAH tapi belum selesai --}}
                     @elseif ($order->payment_proof_path && $order->status != 'selesai' && $order->status != 'dibatalkan')
                         <div class="border-t pt-6">
                              <h3 class="font-semibold mb-4 text-lg">Bukti Pembayaran Terkirim</h3>
@@ -157,7 +138,6 @@
                              </div>
                         </div>
 
-                    {{-- Kondisi 3: Jika pesanan SUDAH SELESAI --}}
                     @elseif ($order->status == 'selesai')
                         <div class="border-t pt-6">
                             <h3 class="font-semibold text-lg mb-4">Beri Ulasan untuk Produk Anda</h3>
@@ -176,10 +156,8 @@
                                         <form action="{{ route('review.store', $detail->produk_id) }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="order_id" value="{{ $order->id }}">
-                                            {{-- Sisipkan kembali kode form rating bintang dan komentar di sini --}}
                                             <div class="mb-2">
                                                 <div class="flex flex-row-reverse justify-end items-center space-x-1 space-x-reverse mt-1">
-                                                    {{-- Ubah perulangan untuk menghitung mundur dari 5 ke 1 --}}
                                                     @for ($i = 5; $i >= 1; $i--)
                                                         <input type="radio" id="rating-{{ $detail->id }}-{{ $i }}" name="rating" value="{{ $i }}" class="sr-only peer" required>
                                                         <label for="rating-{{ $detail->id }}-{{ $i }}" class="cursor-pointer text-2xl text-gray-300 peer-hover:text-yellow-400 peer-checked:text-yellow-500 peer-checked:peer-hover:text-yellow-500">★</label>
@@ -197,7 +175,6 @@
                         </div>
                     @endif
 
-                    {{-- Bagian Informasi Toko (Selalu Tampil) --}}
                     <div class="border-t pt-6">
                         <h3 class="font-semibold mb-2">Informasi Toko</h3>
                         <div class="mt-2 bg-gray-100 p-3 rounded-lg">
@@ -206,7 +183,6 @@
                         </div>
                     </div>
 
-                    {{-- Tombol Batal (Hanya tampil jika boleh batal) --}}
                     @if ($order->status == 'belum_dikonfirmasi' && !$order->payment_proof_path)
                         <div class="border-t pt-6 text-center">
                              <form action="{{ route('pesanan.batal', $order) }}" method="POST">
