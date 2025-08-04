@@ -4,7 +4,7 @@
           <!-- Hero Content -->
           <div class="w-full lg:w-1/2 mb-12 lg:mb-0 animate-fade-in">
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight mb-6">
-              Enchance your Android <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-green-400">Performance now!</span>
+              Enhance your Android <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-green-400">Performance now!</span>
             </h1>
             <p class="text-xl text-gray-600 mb-8 max-w-xl">
               Kami menyediakan solusi modding android untuk meningkatkan performa, fungsionalitas, dan daya tahan baterai perangkat Anda ke level berikutnya.
