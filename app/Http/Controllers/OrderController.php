@@ -117,4 +117,26 @@ class OrderController extends Controller
         // 4. Redirect ke halaman riwayat pesanan dengan pesan sukses
         return redirect()->route('orders.index')->with('success', 'Pesanan #' . str_pad($order->id, 6, '0', STR_PAD_LEFT) . ' telah berhasil dibatalkan.');
     }
+
+    public function addTrackingNumber(Request $request, Order $order)
+    {
+
+        // 1. Logika: Pastikan status pesanan adalah 'diproses'.
+        if ($order->status !== 'diproses') {
+            return back()->with('error', 'Nomor resi hanya bisa ditambahkan saat pesanan sedang diproses.');
+        }
+
+        // 2. Validasi: Pastikan input tidak kosong.
+        $request->validate([
+            'tracking_number' => 'required|string|max:255',
+        ]);
+
+        // 3. Update data di database
+        $order->update([
+            'tracking_number' => $request->tracking_number,
+        ]);
+
+        // 4. Kembali ke halaman yang sama dengan pesan sukses
+        return back()->with('success', 'Nomor resi berhasil ditambahkan!');
+    }
 }

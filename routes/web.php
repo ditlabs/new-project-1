@@ -78,5 +78,7 @@ Route::middleware('auth')->group(function () {
     })->name('services.consultation-support');
 
     Route::post('/review/{produk}', [ReviewController::class, 'store'])->name('review.store')->middleware('auth');
+
+    Route::patch('/pesanan/{order}/add-resi', [OrderController::class, 'addTrackingNumber'])->name('pesanan.add_resi');
 });
 require __DIR__.'/auth.php';

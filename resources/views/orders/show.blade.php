@@ -66,17 +66,39 @@
                         </div>
                     </div>
 
-                    {{-- Tampilkan Nomor Resi HANYA jika status sudah 'diproses' atau 'selesai' --}}
-                    @if ($order->status == 'diproses' || $order->status == 'selesai')
-                        <div class="border-t pt-6">
-                            <h3 class="font-semibold mb-2">Lacak Pengiriman</h3>
-                            @if ($order->tracking_number)
-                                <p class="text-sm text-gray-600">Nomor Resi Anda:</p>
-                                <p class="font-mono text-lg font-bold text-indigo-600 bg-gray-100 p-2 rounded-md mt-1">
-                                    {{ $order->tracking_number }}
-                                </p>
-                            @else
-                                <p class="text-sm text-gray-500">Nomor resi akan segera diupdate oleh admin.</p>
+                    {{-- DI DALAM FILE resources/views/orders/show.blade.php --}}
+
+{{-- Tampilkan bagian ini HANYA jika status sudah 'diproses' atau 'selesai' --}}
+@if ($order->status == 'diproses' || $order->status == 'selesai')
+    <div class="border-t pt-6">
+        <h3 class="font-semibold mb-2">Lacak Pengiriman</h3>
+
+        {{-- Jika nomor resi SUDAH ADA, tampilkan. --}}
+        @if ($order->tracking_number)
+            <p class="text-sm text-gray-600">Nomor Resi Anda:</p>
+            <p class="font-mono text-lg font-bold text-indigo-600 bg-gray-100 p-2 rounded-md mt-1">
+                {{ $order->tracking_number }}
+            </p>
+        
+        {{-- Jika resi BELUM ADA dan status 'diproses', tampilkan form input. --}}
+                            @elseif ($order->status == 'diproses')
+                                <p class="text-sm text-gray-600 mb-2">Silakan masukkan nomor resi pengiriman Anda di bawah ini.</p>
+                                <form action="{{ route('pesanan.add_resi', $order) }}" method="POST">
+                                    @csrf
+                                    @method('PATCH') {{-- Gunakan PATCH untuk update --}}
+                                    <div class="flex items-center gap-4">
+                                        <input type="text" name="tracking_number" required
+                                            class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" 
+                                            placeholder="Masukkan nomor resi...">
+                                        <button type="submit"
+                                                class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors whitespace-nowrap">
+                                            Simpan
+                                        </button>
+                                    </div>
+                                    @error('tracking_number')
+                                        <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
+                                    @enderror
+                                </form>
                             @endif
                         </div>
                     @endif
