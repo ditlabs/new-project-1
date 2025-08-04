@@ -42,13 +42,21 @@
                             <p>Rp {{ number_format($total) }}</p>
                         </div>
                     </div>
-
+                    
                     <div class="border-b pb-4">
                         <h3 class="font-semibold mb-2">Informasi Pembayaran</h3>
                         <p>Silakan transfer ke rekening berikut:</p>
                         <div class="mt-2 bg-gray-100 p-3 rounded-lg">
-                            <p class="font-mono text-lg">Bank ABC: 123-456-7890</p>
-                            <p class="text-sm text-gray-500">a/n Toko Anda</p>
+                            <p class="text-lg">Gopay 0858-6060-2948</p>
+                            <p class="text-sm text-gray-500">modverse.</p>
+                        </div>
+                    </div>
+
+                    <div class="border-b pb-4">
+                        <h3 class="font-semibold mb-2">Informasi Pengiriman</h3>
+                        <p>Silahkan kirim Device anda ke Alamat Toko:</p>
+                        <div class="mt-2 bg-gray-100 p-3 rounded-lg">
+                            <p class="text-gray-500">Jalan Sekeloa Gg Loa 1 No. 98 Kota Bandung, 40132</p>
                         </div>
                     </div>
 

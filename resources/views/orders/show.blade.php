@@ -44,17 +44,17 @@
 
                     <div class="border-t pt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <h3 class="font-semibold mb-2">Alamat Pengiriman</h3>
+                            <h3 class="font-semibold mb-2">Alamat Kamu</h3>
                             <div class="text-sm text-gray-600 leading-relaxed">
                                 {!! nl2br(e($order->shipping_address ?? 'Alamat tidak tersedia.')) !!}
                             </div>
                         </div>
                         <div>
-                            <h3 class="font-semibold mb-2">Informasi Pengirim</h3>
+                            <h3 class="font-semibold mb-2">Alamat Toko</h3>
                             <div class="text-sm text-gray-600 leading-relaxed">
-                                <strong>Ditlabs</strong><br>
-                                Jalan Teknologi No. 123, Cibiru<br>
-                                Bandung, 40294
+                                <strong>modverse.</strong><br>
+                                Jalan Sekeloa Gg Loa 1 No. 98<br>
+                                Kota Bandung, 40132
                             </div>
                         </div>
                     </div>
@@ -178,8 +178,8 @@
                     <div class="border-t pt-6">
                         <h3 class="font-semibold mb-2">Informasi Toko</h3>
                         <div class="mt-2 bg-gray-100 p-3 rounded-lg">
-                            <p class="font-semibold">Ditlabs</p>
-                            <p class="text-sm text-gray-600">Jalan Teknologi No. 123, Cibiru, Bandung, 40294</p>
+                            <p class="font-semibold">modverse.</p>
+                            <p class="text-sm text-gray-600">Jalan Sekeloa Gg Loa 1 No. 98 Kota Bandung, 40132</p>
                         </div>
                     </div>
 
